@@ -6,19 +6,20 @@ const logger = createLogger({
     format.timestamp({
       format: "YYYY-MM-DD HH:mm:ss",
     }),
-    format.errors({ stack: true }),
+    format.errors({ stack: false }),
     format.splat(),
     format.json()
   ),
-  defaultMeta: { service: "your-service-name" },
+  defaultMeta: { service: "Web_Scrapper" },
   transports: [
     //
-    // - Write to all logs with level `info` and below to `quick-start-combined.log`.
-    // - Write all logs error (and below) to `quick-start-error.log`.
+    // - Write to all logs with level `info` and below to `combined.log`.
+    // - Write all logs error (and below) to `error.log`.
     //
     new transports.File({ filename: "error.log", level: "error" }),
     new transports.File({ filename: "combined.log" }),
   ],
+  rejectionHandlers: [new transports.File({ filename: "rejections.log" })],
 });
 
 //

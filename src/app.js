@@ -8,8 +8,8 @@ const addTrackToDB = require("./scrapper"),
 //run the first time server starts
 addTrackToDB();
 
-//runs every day at 4pm
-cron.schedule("0 16 * * *", function () {
+//runs every day at 3pm
+cron.schedule("0 15 * * *", function () {
   addTrackToDB();
   logger.log("AddedTrack ran at " + Date.now());
 });
