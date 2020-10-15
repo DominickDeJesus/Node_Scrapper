@@ -1,6 +1,6 @@
 require("./config/index");
 require("dotenv").config();
-const logger = require("winston");
+const logger = require("./logger/index");
 
 const addTrackToDB = require("./scrapper"),
   cron = require("node-cron");

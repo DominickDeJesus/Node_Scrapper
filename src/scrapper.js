@@ -2,7 +2,9 @@ const puppeteer = require("puppeteer"),
   $ = require("cheerio"),
   URL = "https://www.oneplace.com/ministries/adventures-in-odyssey/listen",
   TAG = "ul.episodesList.accordion-content li a",
-  Track = require("./models/track");
+  Track = require("./models/track"),
+  logger = require("./logger/index");
+
 require("dotenv").config();
 
 const getURLArray = async (url, tag) => {
@@ -32,7 +34,7 @@ const getTrackObj = async (sourceHTML) => {
   trackObj.description = $("div.description p", html).text();
 
   const testTrack = await Track.findOne({ title: trackObj.title });
-  if (testTrack) throw Error("Track already in database!");
+  if (testTrack) throw Error("Can't add, track is already in database!");
 
   const track = new Track(trackObj);
   await track.save();
@@ -44,7 +46,7 @@ const addTrackToDB = async () => {
     const arr = await getURLArray(URL, TAG);
     return await getTrackObj(arr[0].toString());
   } catch (error) {
-    console.log(error.toString());
+    logger.log("error", error);
   }
 };
 
