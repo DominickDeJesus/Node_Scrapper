@@ -8,10 +8,10 @@ const puppeteer = require("puppeteer"),
 require("dotenv").config();
 
 const getURLArray = async (url, tag) => {
-  const episodeURLs = [];
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  const html = await page.goto(url).then(function () {
+  const episodeURLs = [],
+  browser = await puppeteer.launch({headless: true, args: ['--no-sandbox'], executablePath: '/usr/bin/chromium-browser'}),
+  page = await browser.newPage(),
+  html = await page.goto(url).then(function () {
     return page.content();
   });
 
@@ -23,7 +23,7 @@ const getURLArray = async (url, tag) => {
 };
 
 const getTrackObj = async (sourceHTML) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox'], executablePath: '/usr/bin/chromium-browser'});
   const page = await browser.newPage();
   const html = await page.goto(sourceHTML).then(function () {
     return page.content();

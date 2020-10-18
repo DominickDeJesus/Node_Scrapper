@@ -9,7 +9,7 @@ const addTrackToDB = require("./scrapper"),
 addTrackToDB();
 
 //runs every day at 3pm
-cron.schedule("0 15 * * *", function () {
+cron.schedule("0 15 17 * *", function () {
   addTrackToDB();
   logger.log("AddedTrack ran at " + Date.now());
 });
